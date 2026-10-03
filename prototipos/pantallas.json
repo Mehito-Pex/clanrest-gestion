@@ -1,0 +1,161 @@
+[
+  [
+    "P01",
+    "Acceso",
+    [
+      "Usuario",
+      "Contraseña",
+      "Ingresar"
+    ],
+    "Autenticación y cierre de sesión"
+  ],
+  [
+    "P02",
+    "Panel principal",
+    [
+      "Clientes 1 · Cotizaciones 1 · Eventos 1",
+      "Próximo servicio: almuerzo corporativo",
+      "Stock bajo: pollo · Saldo S/ 1250"
+    ],
+    "Indicadores y navegación"
+  ],
+  [
+    "P03",
+    "Clientes",
+    [
+      "Buscar por nombre",
+      "Nombre · documento · teléfono · correo",
+      "Preferencias · activo · historial",
+      "Nuevo cliente / editar"
+    ],
+    "Clientes y preferencias"
+  ],
+  [
+    "P04",
+    "Catálogo",
+    [
+      "Paquetes · menús · platos · extras · insumos",
+      "Nombre · tipo · unidad · precio · mínimo",
+      "Agregar composición y cantidad por porción",
+      "Desactivar / guardar"
+    ],
+    "Catálogo y recetas"
+  ],
+  [
+    "P05",
+    "Cotizaciones",
+    [
+      "Código · cliente · asistentes · vigencia · estado",
+      "Filtrar por estado",
+      "Nueva propuesta · abrir detalle"
+    ],
+    "Lista de propuestas"
+  ],
+  [
+    "P06",
+    "Nueva cotización",
+    [
+      "Cliente · menú/paquete · asistentes",
+      "Fecha y hora · lugar · restricciones",
+      "Extra · cantidad · descuento S/ · impuesto %",
+      "Crear propuesta calculada"
+    ],
+    "Cálculo y captura de alcance"
+  ],
+  [
+    "P07",
+    "Detalle de propuesta",
+    [
+      "COT-000001 · Cliente demo · 50 asistentes",
+      "Conceptos · cantidad · precio histórico · subtotal",
+      "Descuento · impuesto · Total S/ 1750",
+      "Enviar · rechazar · imprimir PDF · aprobar y convertir"
+    ],
+    "Aprobación e impresión"
+  ],
+  [
+    "P08",
+    "Calendario",
+    [
+      "Mes · desde · hasta · estado · responsable",
+      "Calendario mensual con eventos por día",
+      "Agenda: fecha · lugar · responsable · abrir ficha"
+    ],
+    "Agenda y filtros"
+  ],
+  [
+    "P09",
+    "Ficha del evento",
+    [
+      "Fecha · lugar · responsable · estado",
+      "Servicio · restricciones · personal · equipos · notas",
+      "Tareas: descripción · responsable · fecha · terminado",
+      "Receta: insumo · necesario · stock · faltante"
+    ],
+    "Plan de evento y requerimientos"
+  ],
+  [
+    "P10",
+    "Inventario",
+    [
+      "Insumo · unidad · stock · mínimo · alerta",
+      "Entrada / salida / ajuste firmado · cantidad",
+      "Evento opcional · motivo · autorización ADMIN",
+      "Historial: fecha · usuario · stock resultante"
+    ],
+    "Stock y movimientos"
+  ],
+  [
+    "P11",
+    "Pagos y saldos",
+    [
+      "Evento · cliente · total · saldo",
+      "Monto · fecha · método · referencia",
+      "Historial de adelantos y cobros",
+      "Anular con motivo solo ADMIN"
+    ],
+    "Cobros y anulaciones"
+  ],
+  [
+    "P12",
+    "Alertas",
+    [
+      "Eventos próximos en 7 días",
+      "Stock igual o inferior al mínimo",
+      "Saldos pendientes · tareas vencidas",
+      "Abrir eventos e inventario desde navegación"
+    ],
+    "Seguimiento oportuno"
+  ],
+  [
+    "P13",
+    "Reportes",
+    [
+      "Desde · hasta · ventas · cobros · saldos",
+      "Cotizaciones por estado · eventos · movimientos",
+      "Exportar eventos CSV · imprimir"
+    ],
+    "Reportes operativos y comerciales"
+  ],
+  [
+    "P14",
+    "Usuarios y roles",
+    [
+      "Usuario · nombre · rol · activo",
+      "Nueva cuenta · cambiar contraseña",
+      "ADMIN · COORDINADOR · ALMACEN",
+      "Guardar y revocar sesión obsoleta"
+    ],
+    "Administración de accesos"
+  ],
+  [
+    "P15",
+    "Auditoría",
+    [
+      "Fecha · actor · acción · entidad · ID · detalle",
+      "Últimas 200 operaciones críticas",
+      "Consulta sin edición ni eliminación"
+    ],
+    "Trazabilidad"
+  ]
+]

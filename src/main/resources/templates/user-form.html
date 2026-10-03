@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Cuenta de usuario</h1>
+</div>
+<form method="post" th:action="@{/users/save}"  class="panel">
+<div class="row g-3">
+<input type="hidden" name="id" th:value="${u.id}">
+<div class="col-md-6">
+<label for="username" class="form-label">Usuario</label>
+<input class="form-control" id="username" name="username" type="text" th:value="${u.username}" pattern="[a-zA-Z0-9._-]{3,40}" required>
+</div>
+<div class="col-md-6">
+<label for="fullName" class="form-label">Nombre</label>
+<input class="form-control" id="fullName" name="fullName" type="text" th:value="${u.fullName}"  required>
+</div>
+<div class="col-md-6">
+<label for="password" class="form-label">Contraseña nueva, vacía para conservar</label>
+<input class="form-control" id="password" name="password" type="password" minlength="10" autocomplete="new-password" >
+</div>
+<div class="col-md-6">
+<label for="role" class="form-label">Rol</label>
+<select class="form-select" name="role" id="role">
+<option value="ADMIN" th:selected="${u.role == 'ADMIN'}">ADMIN</option>
+<option value="COORDINADOR" th:selected="${u.role == 'COORDINADOR'}">COORDINADOR</option>
+<option value="ALMACEN" th:selected="${u.role == 'ALMACEN'}">ALMACEN</option>
+</select>
+</div>
+<div class="col-12">
+<label>
+<input type="checkbox" name="active" value="true" th:checked="${u.active}"> Activo</label>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Guardar</button>
+</form>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="nav" class="sidebar">
+<a class="brand" th:href="@{/}">ClanRest<span>GESTIÓN</span>
+</a>
+<a th:href="@{/}">Panel principal</a>
+<a sec:authorize="hasAnyRole('ADMIN','COORDINADOR')" th:href="@{/clients}">Clientes</a>
+<a th:href="@{/catalog}">Catálogo y recetas</a>
+<a sec:authorize="hasAnyRole('ADMIN','COORDINADOR')" th:href="@{/quotes}">Cotizaciones</a>
+<a th:href="@{/events}">Calendario y eventos</a>
+<a th:href="@{/inventory}">Inventario y movimientos</a>
+<a sec:authorize="hasAnyRole('ADMIN','COORDINADOR')" th:href="@{/payments}">Pagos y saldos</a>
+<a th:href="@{/alerts}">Alertas</a>
+<a sec:authorize="hasAnyRole('ADMIN','COORDINADOR')" th:href="@{/reports}">Reportes</a>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{/users}">Usuarios y roles</a>
+<a sec:authorize="hasRole('ADMIN')" th:href="@{/audit}">Auditoría</a>
+<div class="session">
+<span sec:authentication="name">
+</span>
+<form method="post" th:action="@{/logout}">
+<button class="btn btn-sm btn-light">Cerrar sesión</button>
+</form>
+</div>
+</nav>
+</body>
+</html>

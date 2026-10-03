@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acceso ClanRest</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="login">
+<section class="login-card">
+<small>CLAN REST CATERING</small>
+<h1>Todo listo para tu próximo evento</h1>
+<p>Gestiona propuestas, equipo e insumos en un solo lugar.</p>
+<div th:if="${param.error}" class="alert alert-danger">Usuario o contraseña inválidos.</div>
+<div th:if="${param.logout}" class="alert alert-success">Sesión cerrada.</div>
+<form method="post" th:action="@{/login}">
+<label for="username">Usuario</label>
+<input class="form-control mb-3" id="username" name="username" required autofocus>
+<label for="password">Contraseña</label>
+<input class="form-control mb-3" id="password" name="password" type="password" required>
+<button class="btn btn-primary w-100">Ingresar</button>
+</form>
+<p class="small mt-4">Demostración académica con datos ficticios.</p>
+</section>
+</body>
+</html>

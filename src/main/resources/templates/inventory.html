@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Inventario y movimientos</h1>
+</div>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Insumo</th>
+<th>Unidad</th>
+<th>Stock actual</th>
+<th>Mínimo</th>
+<th>Alerta</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="i : ${items}">
+<td th:text="${i.name}">
+</td>
+<td th:text="${i.unit}">
+</td>
+<td th:text="${#numbers.formatDecimal(i.stock,1,3)}">
+</td>
+<td th:text="${#numbers.formatDecimal(i.minimum,1,3)}">
+</td>
+<td th:text="${i.stock.compareTo(i.minimum) &lt;= 0 ? 'STOCK BAJO' : 'Disponible'}">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<form method="post" th:action="@{/inventory/move}" sec:authorize="hasAnyRole('ADMIN','ALMACEN')" class="panel">
+<div class="row g-3">
+<div class="col-md-6">
+<label for="itemId" class="form-label">Insumo</label>
+<select class="form-select" name="itemId" id="itemId">
+<option th:each="x : ${items}" th:value="${x.id}" th:text="${x.name}">
+</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="eventId" class="form-label">Evento opcional</label>
+<select class="form-select" name="eventId" id="eventId">
+<option value="">Ninguno</option>
+<option th:each="x : ${events}" th:value="${x.id}" th:text="${x.id}">
+</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="kind" class="form-label">Tipo</label>
+<select class="form-select" name="kind" id="kind">
+<option value="ENTRADA" >ENTRADA</option>
+<option value="SALIDA" >SALIDA</option>
+<option value="AJUSTE" >AJUSTE</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="quantity" class="form-label">Cantidad o ajuste firmado</label>
+<input class="form-control" id="quantity" name="quantity" type="number" step="0.001" required>
+</div>
+<div class="col-md-6">
+<label for="reason" class="form-label">Motivo</label>
+<input class="form-control" id="reason" name="reason" type="text"  required>
+</div>
+<div sec:authorize="hasRole('ADMIN')">
+<label>
+<input type="checkbox" name="authorizeNegative" value="true"> Autorizar stock negativo excepcional</label>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Registrar movimiento</button>
+</form>
+<h2>Historial de movimientos</h2>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Insumo</th>
+<th>Tipo</th>
+<th>Cantidad</th>
+<th>Stock resultante</th>
+<th>Motivo</th>
+<th>Usuario</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="m : ${movements}">
+<td th:text="${m.timestamp}">
+</td>
+<td th:text="${m.item.name}">
+</td>
+<td th:text="${m.kind}">
+</td>
+<td th:text="${#numbers.formatDecimal(m.quantity,1,3)}">
+</td>
+<td th:text="${#numbers.formatDecimal(m.resultingStock,1,3)}">
+</td>
+<td th:text="${m.reason}">
+</td>
+<td th:text="${m.actor}">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

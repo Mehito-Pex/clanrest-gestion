@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Artículo y composición</h1>
+</div>
+<form method="post" th:action="@{/catalog/save}" sec:authorize="hasAnyRole('ADMIN','COORDINADOR')" class="panel">
+<div class="row g-3">
+<input type="hidden" name="id" th:value="${i.id}">
+<div class="col-md-6">
+<label for="name" class="form-label">Nombre</label>
+<input class="form-control" id="name" name="name" type="text" th:value="${i.name}"  required>
+</div>
+<div class="col-md-6">
+<label for="kind" class="form-label">Tipo</label>
+<select class="form-select" name="kind" id="kind">
+<option value="MENU" th:selected="${i.kind == 'MENU'}">MENU</option>
+<option value="PLATO" th:selected="${i.kind == 'PLATO'}">PLATO</option>
+<option value="INSUMO" th:selected="${i.kind == 'INSUMO'}">INSUMO</option>
+<option value="EXTRA" th:selected="${i.kind == 'EXTRA'}">EXTRA</option>
+<option value="PAQUETE" th:selected="${i.kind == 'PAQUETE'}">PAQUETE</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="unit" class="form-label">Unidad</label>
+<input class="form-control" id="unit" name="unit" type="text" th:value="${i.unit}"  required>
+</div>
+<div class="col-md-6">
+<label for="price" class="form-label">Precio S/</label>
+<input class="form-control" id="price" name="price" type="number" th:value="${i.price}" min="0" step="0.01" required>
+</div>
+<div class="col-md-6">
+<label for="minimum" class="form-label">Stock mínimo</label>
+<input class="form-control" id="minimum" name="minimum" type="number" th:value="${i.minimum}" min="0" step="0.001" required>
+</div>
+<div class="col-md-6">
+<label for="description" class="form-label">Descripción</label>
+<textarea class="form-control" id="description" name="description" th:text="${i.description}">
+</textarea>
+</div>
+<div class="col-12">
+<label>
+<input type="checkbox" name="active" value="true" th:checked="${i.active}"> Activo</label>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Guardar</button>
+</form>
+<h2>Composición por persona o porción</h2>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Componente</th>
+<th>Cantidad</th>
+<th>Quitar</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="c : ${components}">
+<td th:text="${c.ingredient.name}">
+</td>
+<td th:text="${c.quantity}">
+</td>
+<td>
+<form method="post" th:action="@{/catalog/component/{id}/remove(id=${c.id})}" sec:authorize="hasAnyRole('ADMIN','COORDINADOR')" class="panel">
+<div class="row g-3">
+<input type="hidden" name="parentId" th:value="${i.id}">
+</div>
+<button class="btn btn-primary mt-3">Quitar</button>
+</form>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<form method="post" th:action="@{/catalog/component}" th:if="${i.id != null}" sec:authorize="hasAnyRole('ADMIN','COORDINADOR')" class="panel">
+<div class="row g-3">
+<input type="hidden" name="parentId" th:value="${i.id}">
+<div class="col-md-6">
+<label for="ingredientId" class="form-label">Plato o insumo</label>
+<select class="form-select" name="ingredientId" id="ingredientId">
+<option th:each="x : ${ingredients}" th:value="${x.id}" th:text="${x.name}">
+</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="quantity" class="form-label">Cantidad por persona / porción</label>
+<input class="form-control" id="quantity" name="quantity" type="number" min="0.001" step="0.001" required>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Agregar componente</button>
+</form>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

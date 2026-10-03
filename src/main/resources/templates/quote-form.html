@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Nueva propuesta</h1>
+</div>
+<p>El total se calcula en el servidor y conserva el precio de esta versión. Descuento en soles; impuesto configurable.</p>
+<form method="post" th:action="@{/quotes/save}"  class="panel">
+<div class="row g-3">
+<div class="col-md-6">
+<label for="clientId" class="form-label">Cliente</label>
+<select class="form-select" name="clientId" id="clientId">
+<option th:each="x : ${clients}" th:value="${x.id}" th:text="${x.name}">
+</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="menuId" class="form-label">Menú o paquete</label>
+<select class="form-select" name="menuId" id="menuId">
+<option th:each="x : ${menus}" th:value="${x.id}" th:text="${x.name}">
+</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="people" class="form-label">Asistentes</label>
+<input class="form-control" id="people" name="people" type="number" min="1" max="10000" value="50" required>
+</div>
+<div class="col-md-6">
+<label for="date" class="form-label">Fecha y hora del evento</label>
+<input class="form-control" id="date" name="date" type="datetime-local"  required>
+</div>
+<div class="col-md-6">
+<label for="valid" class="form-label">Vigente hasta</label>
+<input class="form-control" id="valid" name="valid" type="date" th:value="${today.plusDays(7)}"  required>
+</div>
+<div class="col-md-6">
+<label for="location" class="form-label">Lugar</label>
+<input class="form-control" id="location" name="location" type="text"  required>
+</div>
+<div class="col-md-6">
+<label for="restrictions" class="form-label">Restricciones alimentarias</label>
+<textarea class="form-control" id="restrictions" name="restrictions" >
+</textarea>
+</div>
+<div class="col-md-6">
+<label for="extraId" class="form-label">Extra opcional</label>
+<select class="form-select" name="extraId" id="extraId">
+<option value="">Ninguno</option>
+<option th:each="x : ${extras}" th:value="${x.id}" th:text="${x.name}">
+</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="extraQty" class="form-label">Cantidad del extra</label>
+<input class="form-control" id="extraQty" name="extraQty" type="number" min="0" value="0" required>
+</div>
+<div class="col-md-6">
+<label for="discount" class="form-label">Descuento S/</label>
+<input class="form-control" id="discount" name="discount" type="number" min="0" step="0.01" value="0" required>
+</div>
+<div class="col-md-6">
+<label for="tax" class="form-label">Impuesto %</label>
+<input class="form-control" id="tax" name="tax" type="number" min="0" max="100" step="0.01" value="0" required>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Crear cotización</button>
+</form>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+target/
+data/
+runtime/
+tools/
+maven-cache/
+clanrest-1.0.0.jar
+*.log
+.env
+.idea/
+.vscode/
+*.iml

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Usuarios y roles</h1>
+</div>
+<a class="btn btn-primary mb-3" th:href="@{/users/new}">Nuevo usuario</a>
+<p>Los cambios de rol o la desactivación cierran las sesiones del usuario en su siguiente solicitud.</p>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Usuario</th>
+<th>Nombre</th>
+<th>Rol</th>
+<th>Activo</th>
+<th>Editar</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="u : ${users}">
+<td th:text="${u.username}">
+</td>
+<td th:text="${u.fullName}">
+</td>
+<td th:text="${u.role}">
+</td>
+<td th:text="${u.active ? 'Activo' : 'Inactivo'}">
+</td>
+<td>
+<a class="btn btn-sm btn-outline-primary" th:href="@{/users/{id}(id=${u.id})}">Editar</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

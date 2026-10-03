@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Pagos y saldos</h1>
+</div>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Evento</th>
+<th>Cliente</th>
+<th>Total S/</th>
+<th>Saldo S/</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="e : ${events}">
+<td th:text="${e.id}">
+</td>
+<td th:text="${e.quotation.client.name}">
+</td>
+<td th:text="${e.quotation.total}">
+</td>
+<td th:text="${balances[e.id]}">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<form method="post" th:action="@{/payments/save}"  class="panel">
+<div class="row g-3">
+<div class="col-md-6">
+<label for="eventId" class="form-label">Evento</label>
+<select class="form-select" name="eventId" id="eventId">
+<option th:each="x : ${events}" th:value="${x.id}" th:text="${x.id}">
+</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="amount" class="form-label">Monto S/</label>
+<input class="form-control" id="amount" name="amount" type="number" min="0.01" step="0.01" required>
+</div>
+<div class="col-md-6">
+<label for="date" class="form-label">Fecha del pago</label>
+<input class="form-control" id="date" name="date" type="date" th:value="${today}"  required>
+</div>
+<div class="col-md-6">
+<label for="method" class="form-label">Método</label>
+<select class="form-select" name="method" id="method">
+<option value="EFECTIVO" >EFECTIVO</option>
+<option value="TRANSFERENCIA" >TRANSFERENCIA</option>
+<option value="YAPE" >YAPE</option>
+<option value="PLIN" >PLIN</option>
+<option value="TARJETA" >TARJETA</option>
+</select>
+</div>
+<div class="col-md-6">
+<label for="reference" class="form-label">Referencia interna</label>
+<input class="form-control" id="reference" name="reference" type="text"  >
+</div>
+</div>
+<button class="btn btn-primary mt-3">Registrar pago</button>
+</form>
+<h2>Historial de cobros</h2>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Evento</th>
+<th>Fecha</th>
+<th>Monto S/</th>
+<th>Método</th>
+<th>Referencia</th>
+<th>Anulado</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="p : ${payments}">
+<td th:text="${p.event.id}">
+</td>
+<td th:text="${p.date}">
+</td>
+<td th:text="${p.amount}">
+</td>
+<td th:text="${p.method}">
+</td>
+<td th:text="${p.reference}">
+</td>
+<td th:text="${p.voided ? 'Sí' : 'No'}">
+</td>
+<td>
+<form method="post" th:action="@{/payments/{id}/void(id=${p.id})}" sec:authorize="hasRole('ADMIN')" th:if="${!p.voided}" class="panel">
+<div class="row g-3">
+<div class="col-md-6">
+<label for="reason" class="form-label">Motivo de anulación</label>
+<input class="form-control" id="reason" name="reason" type="text"  required>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Anular</button>
+</form>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

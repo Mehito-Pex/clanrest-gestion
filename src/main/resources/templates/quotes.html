@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Cotizaciones</h1>
+</div>
+<a class="btn btn-primary mb-3" th:href="@{/quotes/new}">Nueva cotización</a>
+<form class="mb-3">
+<label for="state">Estado</label>
+<select name="state" id="state">
+<option value="">Todos</option>
+<option value="BORRADOR" >BORRADOR</option>
+<option value="ENVIADA" >ENVIADA</option>
+<option value="APROBADA" >APROBADA</option>
+<option value="RECHAZADA" >RECHAZADA</option>
+</select>
+<button class="btn btn-light">Filtrar</button>
+</form>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Código</th>
+<th>Cliente</th>
+<th>Asistentes</th>
+<th>Vigencia</th>
+<th>Estado</th>
+<th>Total S/</th>
+<th>Ficha</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="q : ${quotes}">
+<td th:text="${q.code}">
+</td>
+<td th:text="${q.client.name}">
+</td>
+<td th:text="${q.attendees}">
+</td>
+<td th:text="${q.validUntil}">
+</td>
+<td th:text="${q.status}">
+</td>
+<td th:text="${q.total}">
+</td>
+<td>
+<a class="btn btn-sm btn-outline-primary" th:href="@{/quotes/{id}(id=${q.id})}">Ver propuesta</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

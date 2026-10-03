@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Tu operación, en orden</h1>
+</div>
+<p>Consulta la agenda y atiende las alertas antes de preparar el servicio.</p>
+<div class="row g-3 mb-4">
+<div class="col-md-4">
+<div class="metric">
+<span>Clientes</span>
+<strong th:text="${clientCount}">
+</strong>
+</div>
+</div>
+<div class="col-md-4">
+<div class="metric">
+<span>Cotizaciones</span>
+<strong th:text="${quoteCount}">
+</strong>
+</div>
+</div>
+<div class="col-md-4">
+<div class="metric">
+<span>Eventos registrados</span>
+<strong th:text="${eventCount}">
+</strong>
+</div>
+</div>
+</div>
+<h2>Próximos servicios</h2>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Cliente</th>
+<th>Estado</th>
+<th>Ficha</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="e : ${events}">
+<td th:text="${e.date}">
+</td>
+<td th:text="${e.quotation.client.name}">
+</td>
+<td th:text="${e.status}">
+</td>
+<td>
+<a class="btn btn-sm btn-outline-primary" th:href="@{/events/{id}(id=${e.id})}">Ver evento</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Atención pendiente</h2>
+<ul class="panel">
+<li th:each="a : ${alerts}" th:text="${a}">
+</li>
+</ul>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

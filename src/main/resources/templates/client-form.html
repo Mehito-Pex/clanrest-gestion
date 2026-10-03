@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Ficha de cliente</h1>
+</div>
+<form method="post" th:action="@{/clients/save}"  class="panel">
+<div class="row g-3">
+<input type="hidden" name="id" th:value="${c.id}">
+<div class="col-md-6">
+<label for="name" class="form-label">Nombre</label>
+<input class="form-control" id="name" name="name" type="text" th:value="${c.name}" maxlength="120" required>
+</div>
+<div class="col-md-6">
+<label for="documentNumber" class="form-label">Documento</label>
+<input class="form-control" id="documentNumber" name="documentNumber" type="text" th:value="${c.documentNumber}"  >
+</div>
+<div class="col-md-6">
+<label for="phone" class="form-label">Teléfono</label>
+<input class="form-control" id="phone" name="phone" type="text" th:value="${c.phone}"  >
+</div>
+<div class="col-md-6">
+<label for="email" class="form-label">Correo</label>
+<input class="form-control" id="email" name="email" type="email" th:value="${c.email}"  >
+</div>
+<div class="col-md-6">
+<label for="preferences" class="form-label">Preferencias alimentarias</label>
+<textarea class="form-control" id="preferences" name="preferences" th:text="${c.preferences}">
+</textarea>
+</div>
+<div class="col-12">
+<label>
+<input type="checkbox" name="active" value="true" th:checked="${c.active}"> Activo</label>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Guardar</button>
+</form>
+<h2 th:if="${history != null}">Historial de propuestas</h2>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Código</th>
+<th>Estado</th>
+<th>Total S/</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="q : ${history}">
+<td th:text="${q.code}">
+</td>
+<td th:text="${q.status}">
+</td>
+<td th:text="${q.total}">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

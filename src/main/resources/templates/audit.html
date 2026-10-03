@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Auditoría</h1>
+</div>
+<p>Últimas 200 acciones. La interfaz permite consultar registros; no permite editarlos ni eliminarlos.</p>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Usuario</th>
+<th>Acción</th>
+<th>Entidad</th>
+<th>ID</th>
+<th>Detalle</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="a : ${entries}">
+<td th:text="${a.timestamp}">
+</td>
+<td th:text="${a.actor}">
+</td>
+<td th:text="${a.action}">
+</td>
+<td th:text="${a.entityName}">
+</td>
+<td th:text="${a.entityId}">
+</td>
+<td th:text="${a.detail}">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

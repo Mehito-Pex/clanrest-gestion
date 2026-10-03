@@ -1,0 +1,16 @@
+﻿ID,Requisito,Especificacion,Pantallas,Implementacion,Prueba
+RF-01,Autenticación,"Iniciar y cerrar sesión con permisos ADMIN, COORDINADOR y ALMACEN.",P01,SecurityConfig / AccountStateFilter,anonymousRedirectAndRealLogin
+RF-02,Clientes,"Registrar, consultar, editar y desactivar clientes; registrar contactos, preferencias e historial.",P03,saveClient,csrfAndClientSubmission
+RF-03,Catálogo,"Gestionar menús, platos, paquetes, extras e insumos; composición menú→plato→insumo por porción.",P04,saveItem / addComponent,invalidRecipeAndDiscountBlocked
+RF-04,Cotización,"Crear propuesta con cliente, asistentes, menú, extra opcional, vigencia, descuento en soles e impuesto configurable.",P05 P06,createQuote,fullCycleAndHistoricalPrice
+RF-05,Documento,"Mostrar propuesta imprimible y permitir guardar PDF desde el navegador, con precios históricos.",P07,quote-detail.html,allAdminScreensRender + revisión visual
+RF-06,Aprobación,Aprobar cotización vigente y generar un evento único; repetir aprobación devuelve el existente.,P07 P09,approve,fullCycleAndHistoricalPrice / expiredApprovalBlocked
+RF-07,Calendario,"Mostrar calendario mensual y agenda filtrada por fechas, estado y responsable.",P08,WebController.events,allAdminScreensRender + revisión móvil
+RF-08,Plan del evento,"Mantener horario, lugar, responsables, servicio, restricciones, personal, equipos, notas y tareas.",P09,saveEvent / addTask / toggleTask,eventCannotCloseWithBalance
+RF-09,Inventario,"Registrar entradas, salidas y ajustes firmados, motivo, usuario, evento opcional y stock resultante.",P10,move,stockCannotBecomeNegative / movementAndRecipe
+RF-10,Requerimientos,"Consolidar insumos por receta vigente y cantidad de asistentes, con stock y faltante.",P09,requirements / expand,movementAndRecipe
+RF-11,Pagos,Registrar adelantos y pagos por evento; mostrar saldo; anular con motivo únicamente como ADMIN.,P11,pay / voidPayment / balance,paymentRejectsOverpaymentAndFractionalCent
+RF-12,Alertas,"Mostrar stock bajo, eventos a 7 días o atrasados, saldos pendientes y tareas vencidas.",P02 P12,alerts,allAdminScreensRender
+RF-13,Reportes,"Filtrar ventas comprometidas, cobros, saldos, cotizaciones, eventos y movimientos; exportar CSV de eventos.",P13,reports / export,exportEscapesSpreadsheetFormulas
+RF-14,Auditoría,"Registrar actor, fecha, acción, entidad e ID en operaciones críticas e inicio de sesión.",P15,audit / LoginAudit,fullCycleAndHistoricalPrice
+RF-15,Usuarios y roles,"Crear y actualizar usuarios, contraseñas y roles; conservar un ADMIN activo y revocar permisos obsoletos.",P14,saveUser / AccountStateFilter,cannotRemoveLastAdmin

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Catálogo y recetas</h1>
+</div>
+<p>Organiza paquetes y menús con platos; cada plato indica sus insumos por porción. El stock se modifica desde movimientos.</p>
+<a sec:authorize="hasAnyRole('ADMIN','COORDINADOR')" class="btn btn-primary mb-3" th:href="@{/catalog/new}">Nuevo artículo</a>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Tipo</th>
+<th>Unidad</th>
+<th>Precio S/</th>
+<th>Activo</th>
+<th>Ficha</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="i : ${items}">
+<td th:text="${i.name}">
+</td>
+<td th:text="${i.kind}">
+</td>
+<td th:text="${i.unit}">
+</td>
+<td th:text="${i.price}">
+</td>
+<td th:text="${i.active ? 'Activo' : 'Inactivo'}">
+</td>
+<td>
+<a class="btn btn-sm btn-outline-primary" th:href="@{/catalog/{id}(id=${i.id})}">Ver / editar</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

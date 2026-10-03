@@ -1,0 +1,55 @@
+classDiagram
+class Client {
+ Long id
+ Long version
+}
+class Quotation {
+ Long id
+ Long version
+}
+class QuoteLine {
+ Long id
+ Long version
+}
+class CatalogItem {
+ Long id
+ Long version
+}
+class Event {
+ Long id
+ Long version
+}
+class Payment {
+ Long id
+ Long version
+}
+class EventTask {
+ Long id
+ Long version
+}
+class StockMovement {
+ Long id
+ Long version
+}
+class Component {
+ Long id
+ Long version
+}
+class AppUser {
+ Long id
+ Long version
+}
+class AuditEntry {
+ Long id
+ Long version
+}
+Client "1" --> "0..*" Quotation
+Quotation "1" --> "1..*" QuoteLine
+QuoteLine "0..*" --> "1" CatalogItem
+Quotation "1" --> "0..1" Event
+Event "1" --> "0..*" Payment
+Event "1" --> "0..*" EventTask
+CatalogItem "1" --> "0..*" Component : parent
+CatalogItem "1" --> "0..*" Component : ingredient
+CatalogItem "1" --> "0..*" StockMovement
+Event "0..1" --> "0..*" StockMovement

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Detalle de cotización</h1>
+</div>
+<section class="panel">
+<h2 th:text="${q.code}">
+</h2>
+<p>
+<strong>Cliente</strong> <span th:text="${q.client.name}">
+</span>
+</p>
+<p>Estado <span class="badge text-bg-secondary" th:text="${q.status}">
+</span> · Vigencia <span th:text="${q.validUntil}">
+</span>
+</p>
+<p>Evento <span th:text="${q.eventDate}">
+</span> · Lugar <span th:text="${q.location}">
+</span>
+</p>
+<p>Restricciones <span th:text="${q.restrictions}">
+</span>
+</p>
+</section>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Concepto histórico</th>
+<th>Cantidad</th>
+<th>Precio unitario S/</th>
+<th>Subtotal S/</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="l : ${lines}">
+<td th:text="${l.description}">
+</td>
+<td th:text="${l.quantity}">
+</td>
+<td th:text="${l.unitPrice}">
+</td>
+<td th:text="${l.subtotal}">
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Descuento S/ <span th:text="${q.discount}">
+</span> · Impuesto <span th:text="${q.taxPercent}">
+</span>%</p>
+<h2>Total S/ <span th:text="${q.total}">
+</span>
+</h2>
+<p class="small">Comprobante interno de propuesta. No constituye comprobante tributario.</p>
+<button class="btn btn-outline-primary no-print" onclick="window.print()">Imprimir / guardar PDF</button>
+<form method="post" th:action="@{/quotes/{id}/state(id=${q.id})}" th:if="${q.status == 'BORRADOR' or q.status == 'ENVIADA'}" class="panel">
+<div class="row g-3">
+<div class="col-md-6">
+<label for="state" class="form-label">Estado de seguimiento</label>
+<select class="form-select" name="state" id="state">
+<option value="ENVIADA" >ENVIADA</option>
+<option value="RECHAZADA" >RECHAZADA</option>
+</select>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Actualizar</button>
+</form>
+<form method="post" th:action="@{/quotes/{id}/approve(id=${q.id})}" th:if="${q.status == 'BORRADOR' or q.status == 'ENVIADA'}" class="panel">
+<div class="row g-3">
+<p>Confirma la aceptación del cliente y genera la ficha del evento.</p>
+</div>
+<button class="btn btn-primary mt-3">Aprobar y convertir a evento</button>
+</form>
+<a th:if="${event != null}" class="btn btn-primary" th:href="@{/events/{id}(id=${event.id})}">Ver evento confirmado</a>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

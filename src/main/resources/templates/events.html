@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClanRest Gestión</title>
+<link rel="stylesheet" th:href="@{/vendor/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: nav}">
+</div>
+<main class="container-fluid content">
+<div class="page-title">
+<small>CATERING Y EVENTOS</small>
+<h1>Calendario de eventos</h1>
+</div>
+<form class="panel">
+<div class="row g-3">
+<div class="col-md-6">
+<label for="month" class="form-label">Mes de calendario</label>
+<input class="form-control" id="month" name="month" type="month" th:value="${month}"  >
+</div>
+<div class="col-md-6">
+<label for="from" class="form-label">Desde</label>
+<input class="form-control" id="from" name="from" type="date"  >
+</div>
+<div class="col-md-6">
+<label for="to" class="form-label">Hasta</label>
+<input class="form-control" id="to" name="to" type="date"  >
+</div>
+<div class="col-md-6">
+<label for="responsible" class="form-label">Responsable</label>
+<input class="form-control" id="responsible" name="responsible" type="text"  >
+</div>
+<div class="col-md-6">
+<label for="state" class="form-label">Estado</label>
+<select class="form-select" name="state" id="state">
+<option value="">Todos</option>
+<option value="CONFIRMADO" >CONFIRMADO</option>
+<option value="EN_PREPARACION" >EN_PREPARACION</option>
+<option value="EN_SERVICIO" >EN_SERVICIO</option>
+<option value="CERRADO" >CERRADO</option>
+<option value="CANCELADO" >CANCELADO</option>
+</select>
+</div>
+</div>
+<button class="btn btn-primary mt-3">Consultar</button>
+</form>
+<h2 th:text="${month}">
+</h2>
+<div class="calendar">
+<div class="day heading" th:each="d : ${ {'Lun','Mar','Mié','Jue','Vie','Sáb','Dom'} }" th:text="${d}">
+</div>
+<div class="day" th:each="d,loop : ${days}" th:style="${loop.first ? 'grid-column-start:' + offset : ''}">
+<strong th:text="${d.day}">
+</strong>
+<a th:each="e : ${d.events}" th:href="@{/events/{id}(id=${e.id})}" th:text="${e.quotation.client.name}">
+</a>
+</div>
+</div>
+<h2 class="mt-4">Agenda filtrada</h2>
+<div class="table-responsive panel">
+<table class="table table-hover">
+<thead>
+<tr>
+<th>Fecha y hora</th>
+<th>Cliente</th>
+<th>Lugar</th>
+<th>Responsable</th>
+<th>Estado</th>
+<th>Ficha</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="e : ${events}">
+<td th:text="${e.date}">
+</td>
+<td th:text="${e.quotation.client.name}">
+</td>
+<td th:text="${e.location}">
+</td>
+<td th:text="${e.responsible}">
+</td>
+<td th:text="${e.status}">
+</td>
+<td>
+<a class="btn btn-sm btn-outline-primary" th:href="@{/events/{id}(id=${e.id})}">Abrir</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+<footer class="content text-muted">ClanRest Gestión · Proyecto académico · Datos demo ficticios</footer>
+</body>
+</html>

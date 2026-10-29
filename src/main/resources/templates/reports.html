@@ -41,6 +41,7 @@
 </div>
 </div>
 <a class="btn btn-outline-primary my-3" th:href="@{/reports/export(from=${from},to=${to})}">Exportar eventos CSV</a>
+<a class="btn btn-primary my-3" th:href="@{/reports/export/xlsx(from=${from},to=${to})}">Exportar eventos Excel</a>
 <button class="btn btn-light no-print" onclick="window.print()">Imprimir reporte</button>
 <h2>Cotizaciones por estado</h2>
 <div class="table-responsive panel">

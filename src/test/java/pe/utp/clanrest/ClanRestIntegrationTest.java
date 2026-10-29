@@ -313,4 +313,24 @@ class ClanRestIntegrationTest {
             .getContentAsString();
     assertThat(text).contains("'=SUM(1,2)");
   }
+
+  @Test
+  @WithMockUser(username = "admin", roles = "ADMIN")
+  void excelExportReturnsAValidWorkbook() throws Exception {
+    byte[] bytes =
+        mvc.perform(get("/reports/export/xlsx"))
+            .andExpect(status().isOk())
+            .andExpect(
+                content()
+                    .contentType(
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+            .andReturn()
+            .getResponse()
+            .getContentAsByteArray();
+    try (var workbook =
+        new org.apache.poi.xssf.usermodel.XSSFWorkbook(new java.io.ByteArrayInputStream(bytes))) {
+      assertThat(workbook.getSheet("Eventos")).isNotNull();
+      assertThat(workbook.getSheet("Eventos").getLastRowNum()).isGreaterThanOrEqualTo(1);
+    }
+  }
 }

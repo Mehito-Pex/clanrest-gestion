@@ -11,11 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pe.utp.clanrest.entity.*;
 import pe.utp.clanrest.service.BusinessService;
+import pe.utp.clanrest.service.ExcelReportService;
 
 @Controller
 @RequiredArgsConstructor
 public class WebController {
   private final BusinessService s;
+  private final ExcelReportService excelReports;
 
   @ModelAttribute
   public void common(Model m) {
@@ -426,6 +428,33 @@ public class WebController {
         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=clanrest-eventos.csv")
         .contentType(new MediaType("text", "csv", java.nio.charset.StandardCharsets.UTF_8))
         .body(b.toString());
+  }
+
+  /** Exporta los eventos del periodo a un libro XLSX protegido contra fórmulas inyectadas. */
+  @GetMapping("/reports/export/xlsx")
+  public ResponseEntity<byte[]> exportXlsx(
+      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to)
+      throws java.io.IOException {
+    var rows =
+        reportEvents(from, to).stream()
+            .map(
+                e ->
+                    new ExcelReportService.EventReportRow(
+                        e.id,
+                        e.date,
+                        e.quotation.client.name,
+                        e.status,
+                        e.quotation.total,
+                        s.paid(e),
+                        s.balance(e)))
+            .toList();
+    return ResponseEntity.ok()
+        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=clanrest-eventos.xlsx")
+        .contentType(
+            MediaType.parseMediaType(
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+        .body(excelReports.generate(rows));
   }
 
   @GetMapping("/users")

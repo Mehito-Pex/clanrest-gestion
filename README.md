@@ -1,5 +1,9 @@
 # ClanRest Gestión
 
+## Avance de Proyecto Final 3
+
+El Avance 3 añade exportación de reportes a Excel, evidencia TDD, las cuatro librerías Java solicitadas, Logback, JaCoCo, Javadoc y documentación de sustentación. La entrega se encuentra en `documentacion/avance3/`. La verificación actual ejecuta 20 pruebas sin fallos.
+
 Proyecto académico funcional del Avance 2, basado en Clan_Rest_Catering_APF1.docx y APF2_INDICACIONES Y RUBRICA _T2_LAJZM.pdf. Incluye Java 21, Spring Boot 3.5.6, Maven, Spring Data JPA, Thymeleaf/Bootstrap, MySQL y H2. Usa datos ficticios y no presupone validación empresarial.
 
 ## Uso desde GitHub

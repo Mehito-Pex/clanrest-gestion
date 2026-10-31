@@ -9,3 +9,19 @@ clanrest-1.0.0.jar
 .idea/
 .vscode/
 *.iml
+
+# Material local de trabajo que no se publica en GitHub
+diagramas/
+prototipos/
+INICIAR_CLANREST.cmd
+COMPILAR_Y_PROBAR.cmd
+
+database/*
+!database/clanrest.sql
+
+documentacion/*
+!documentacion/avance3/
+documentacion/avance3/*
+!documentacion/avance3/Informe_Avance_3_ClanRest.docx
+!documentacion/avance3/Sustentacion_Avance_3_ClanRest.pptx
+!documentacion/avance3/Guia_Ejecucion_y_Exposicion_ClanRest.docx

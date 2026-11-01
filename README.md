@@ -12,7 +12,7 @@ Proyecto académico para administrar la operación de una empresa de catering. E
 - JUnit, TDD y JaCoCo
 - Guava, Apache POI, Apache Commons y Logback
 
-## Ejecutar el proyecto
+## Proyecto
 
 Requisitos: JDK 21 y Maven 3.9 o superior.
 

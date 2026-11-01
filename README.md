@@ -23,7 +23,7 @@ mvn clean test
 mvn spring-boot:run
 ```
 
-Abrir `http://127.0.0.1:8080`.
+
 
 ## Cuentas de demostración
 
